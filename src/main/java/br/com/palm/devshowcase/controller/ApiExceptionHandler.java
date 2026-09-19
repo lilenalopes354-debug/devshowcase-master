@@ -1,0 +1,34 @@
+package br.com.palm.devshowcase.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+@RestControllerAdvice
+public class ApiExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> validation(MethodArgumentNotValidException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", 400);
+        body.put("message", "Dados inválidos");
+        Map<String, String> fields = new LinkedHashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(e -> fields.put(e.getField(), e.getDefaultMessage()));
+        body.put("errors", fields);
+        return ResponseEntity.badRequest().body(body);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Map<String, Object>> notFound(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("status", 404, "message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, Object>> conflict(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("status", 409, "message", ex.getMessage()));
+    }
+}

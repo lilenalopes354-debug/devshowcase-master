@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "DevShowcase API - Entrega Etapa 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - POST Profile",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Ana Silva\", \"email\": \"ana@email.com\", \"bio\": \"Desenvolvedora Java\", \"githubUrl\": \"https://github.com/anasilva\", \"linkedinUrl\": \"https://linkedin.com/in/anasilva\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "profiles"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2 - GET Profile por ID",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/profiles/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "profiles",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3 - POST Technology",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Java\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/technologies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "technologies"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4 - GET Technologies",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/technologies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "technologies"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5 - POST Project",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"DevShowcase\", \"description\": \"Portf\\u00f3lio de projetos\", \"projectUrl\": \"https://github.com/anasilva/devshowcase\", \"profileId\": 1, \"technologyIds\": [1]}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/projects",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "projects"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6 - GET Projects",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/projects",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "projects"
+          ]
+        }
+      }
+    }
+  ]
+}
