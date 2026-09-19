@@ -20,6 +20,31 @@ Para executar os testes:
 .\mvnw.cmd clean test
 ```
 
+Documentação interativa: `http://localhost:8080/swagger-ui/index.html`
+
+## Atividade 2
+
+### Projetos
+
+`GET /api/projects?technology=Java&page=0&size=10`
+
+`PUT /api/projects/{id}/upvote`
+
+`POST /api/projects/{id}/feedbacks`
+```json
+{
+  "authorName": "Maria Silva",
+  "comment": "Excelente projeto",
+  "rating": 5
+}
+```
+
+### Deploy no Render
+
+O arquivo `render.yaml` provisiona o serviço web e um PostgreSQL gratuito. No painel do Render, conecte o Blueprint ao repositório GitHub e configure `DATABASE_URL`, `DATABASE_USER` e `DATABASE_PASSWORD` como variáveis privadas. O valor de `DATABASE_URL` deve usar o formato JDBC, por exemplo `jdbc:postgresql://host:5432/devshowcase`.
+
+O deploy contínuo é ativado pelo próprio Render ao conectar o serviço à branch `main`.
+
 Banco local: H2 em memória.
 
 ## Endpoints

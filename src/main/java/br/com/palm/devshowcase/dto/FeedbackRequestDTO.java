@@ -20,6 +20,5 @@ public record FeedbackRequestDTO(
     @Max(value = 5, message = "Nota máxima é 5")
     Integer rating,
 
-    @NotNull(message = "projectId é obrigatório")
     Long projectId
 ) {}

@@ -2,12 +2,14 @@ package br.com.palm.devshowcase.service;
 
 import br.com.palm.devshowcase.dto.ProjectRequestDTO;
 import br.com.palm.devshowcase.dto.ProjectResponseDTO;
+import br.com.palm.devshowcase.dto.FeedbackRequestDTO;
 import br.com.palm.devshowcase.model.Profile;
 import br.com.palm.devshowcase.model.Project;
 import br.com.palm.devshowcase.model.Technology;
 import br.com.palm.devshowcase.repository.ProfileRepository;
 import br.com.palm.devshowcase.repository.ProjectRepository;
 import br.com.palm.devshowcase.repository.TechnologyRepository;
+import br.com.palm.devshowcase.repository.FeedbackRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,6 +37,9 @@ class ProjectServiceTest {
 
     @Mock
     private TechnologyRepository technologyRepository;
+
+    @Mock
+    private FeedbackRepository feedbackRepository;
 
     @InjectMocks
     private ProjectService service;
@@ -97,5 +102,35 @@ class ProjectServiceTest {
 
         assertEquals(1, response.size());
         assertEquals("Projeto", response.get(0).title());
+    }
+
+    @Test
+    void deveAdicionarFeedbackEAtualizarMedia() {
+        Project project = new Project();
+        project.setProfile(new Profile("Ada", "ada@example.com", null, null, null));
+        when(projectRepository.findById(1L)).thenReturn(Optional.of(project));
+        when(projectRepository.save(any(Project.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        ProjectResponseDTO ignored = service.upvote(1L);
+        assertEquals(1, ignored.upvotes());
+
+        service.adicionarFeedback(1L, new FeedbackRequestDTO("Caio", "Muito bom", 5, null));
+        service.adicionarFeedback(1L, new FeedbackRequestDTO("Bia", "Bom", 3, null));
+
+        assertEquals(4.0, project.getAverageRating());
+        assertEquals(2, project.getFeedbacks().size());
+    }
+
+    @Test
+    void deveIncrementarUpvote() {
+        Project project = new Project();
+        project.setProfile(new Profile("Ada", "ada@example.com", null, null, null));
+        when(projectRepository.findById(2L)).thenReturn(Optional.of(project));
+        when(projectRepository.save(any(Project.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        service.upvote(2L);
+        service.upvote(2L);
+
+        assertEquals(2, project.getUpvotes());
     }
 }

@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: devshowcase-api
+    runtime: docker
+    plan: free
+    healthCheckPath: /swagger-ui/index.html
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USER
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+databases:
+  - name: devshowcase-db
+    plan: free
+    databaseName: devshowcase
+    user: devshowcase

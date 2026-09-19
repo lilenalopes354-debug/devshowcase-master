@@ -22,6 +22,12 @@ public class Project {
     @Column(nullable = false, length = 500)
     private String projectUrl;
 
+    @Column(nullable = false)
+    private Integer upvotes = 0;
+
+    @Column(nullable = false)
+    private Double averageRating = 0.0;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
@@ -43,6 +49,8 @@ public class Project {
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getProjectUrl() { return projectUrl; }
+    public Integer getUpvotes() { return upvotes; }
+    public Double getAverageRating() { return averageRating; }
     public Profile getProfile() { return profile; }
     public Set<Technology> getTechnologies() { return technologies; }
     public List<Feedback> getFeedbacks() { return feedbacks; }
@@ -50,6 +58,8 @@ public class Project {
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }
     public void setProjectUrl(String projectUrl) { this.projectUrl = projectUrl; }
+    public void setUpvotes(Integer upvotes) { this.upvotes = upvotes; }
+    public void setAverageRating(Double averageRating) { this.averageRating = averageRating; }
     public void setProfile(Profile profile) { this.profile = profile; }
     public void setTechnologies(Set<Technology> technologies) { this.technologies = technologies; }
 }
